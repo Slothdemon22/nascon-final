@@ -26,7 +26,7 @@ An advanced educational platform where **students** can browse courses, enroll, 
 - **AI-enhanced transcription** of course videos using Whisper/OpenAI or similar
 - Auto-generated transcripts displayed alongside videos
 - Improves accessibility for all learners
-- Helps with content search and learning reinforcement
+  
 
 ### 🌐 General
 - Fully responsive and mobile-friendly design
