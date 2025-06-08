@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 EdTech Platform
 
-## Getting Started
+An advanced educational platform where **students** can browse courses, enroll, watch video content, and interact with **tutors** via real-time chat. **Tutors** can manage their courses, upload content, and track enrolled students. Includes Stripe payment integration (mocked for testing), a stunning 3D animation landing page, and **AI-powered video transcription** for accessibility and content reinforcement.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🧑‍🎓 Students
+- Browse and search available courses
+- Enroll in courses (Stripe mock payment)
+- Watch course videos with **progress tracking**
+- View **AI-generated video transcriptions** in real-time
+- Chat with tutors inside each course
+- Resume learning exactly where they left off
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🧑‍🏫 Tutors
+- Secure tutor dashboard
+- Upload, manage, edit, and delete course content
+- Create and manage courses with modules and lessons
+- View enrolled students
+- Unenroll or remove students from courses
+- Review AI-generated transcriptions for accuracy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🤖 AI Integration
+- **AI-enhanced transcription** of course videos using Whisper/OpenAI or similar
+- Auto-generated transcripts displayed alongside videos
+- Improves accessibility for all learners
+- Helps with content search and learning reinforcement
 
-## Learn More
+### 🌐 General
+- Fully responsive and mobile-friendly design
+- 3D animated landing page built with Three.js / React Three Fiber
+- Modern UI using Tailwind CSS or ShadCN
+- JWT-based or NextAuth authentication
+- Mock Stripe integration for payments
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Frontend**: Next.js (App Router), React, Tailwind CSS
+- **Backend**: Next.js API Routes / Node.js
+- **Database**: MongoDB + Mongoose
+- **Auth**: JWT or NextAuth.js
+- **Payments**: Stripe (test mode/mock)
+- **3D Animation**: Three.js / React Three Fiber
+- **AI Transcription**: OpenAI Whisper API or custom AI transcription pipeline
+- **Chat**: Socket.IO or Firebase Realtime
+- **Video Hosting**: Edge Store, Vimeo, or cloud-based storage
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
