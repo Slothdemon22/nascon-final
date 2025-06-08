@@ -6,6 +6,7 @@ const isPublicRoute = createRouteMatcher([
   '/', 
   '/about',
   '/publicPage',
+  "/courses(.*)",
         // login, register, etc.
 ]);
 
@@ -15,13 +16,14 @@ const isPrivateRoute = createRouteMatcher([
   '/payment(.*)',
   "/chat(.*)",
   "/tutor-dashboard(.*)",
-
+  "/enrolled-courses(.*)",
 ]);
 
 // Admin routes - accessible only if logged in + role === 'admin'
 const isAdminRoute = createRouteMatcher([
   '/dashboard(.*)',
   '/admin(.*)',
+  "/tutor-dashboard(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
