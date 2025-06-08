@@ -1,6 +1,24 @@
-# 🎓 EdTech Platform
+# 🎓 EdTech Platform – NASCON 2025 Hackathon Project
 
-An advanced educational platform where **students** can browse courses, enroll, watch video content, and interact with **tutors** via real-time chat. **Tutors** can manage their courses, upload content, and track enrolled students. Includes Stripe payment integration (mocked for testing), a stunning 3D animation landing page, and **AI-powered video transcription** for accessibility and content reinforcement.
+A full-featured EdTech platform developed in just **6 hours** during the **NASCON 2025 Hackathon** by [Hasnat Ahmed](https://www.linkedin.com/in/hasnat-ahmed), [Muhammad Saad](https://www.linkedin.com/in/muhammad-saad), and [Your Name].
+
+🌐 **Live Demo**:  
+[https://nascon-final-amber.vercel.app/](https://nascon-final-amber.vercel.app/)
+
+---
+
+## 🚀 Overview
+
+This platform connects students and tutors in an immersive learning environment, featuring:
+- Course creation & management
+- Video hosting via Supabase Buckets
+- Real-time AI-powered video transcription
+- Live chat via WebSockets
+- Secure authentication with Clerk
+- Smart email notifications with Resend
+- Mock Stripe payment flow
+
+Built with a modern, scalable tech stack and designed for accessibility and responsiveness.
 
 ---
 
@@ -9,44 +27,62 @@ An advanced educational platform where **students** can browse courses, enroll, 
 ### 🧑‍🎓 Students
 - Browse and search available courses
 - Enroll in courses (Stripe mock payment)
-- Watch course videos with **progress tracking**
+- Watch course videos with progress tracking
 - View **AI-generated video transcriptions** in real-time
 - Chat with tutors inside each course
 - Resume learning exactly where they left off
 
 ### 🧑‍🏫 Tutors
-- Secure tutor dashboard
-- Upload, manage, edit, and delete course content
-- Create and manage courses with modules and lessons
-- View enrolled students
-- Unenroll or remove students from courses
-- Review AI-generated transcriptions for accuracy
+- Secure dashboard with **Clerk authentication**
+- Create, edit, and manage courses, modules, and lessons
+- Upload video content to **Supabase Buckets**
+- Manage enrolled students and remove them if needed
+- Review and edit **AI-generated transcriptions**
 
 ### 🤖 AI Integration
-- **AI-enhanced transcription** of course videos using Whisper/OpenAI or similar
-- Auto-generated transcripts displayed alongside videos
-- Improves accessibility for all learners
-- Helps with content search and learning reinforcement
+- Real-time transcription of course videos using **OpenAI Whisper**
+- Transcripts shown alongside the video player
+- Boosts accessibility and learning retention
 
-### 🌐 General
-- Fully responsive and mobile-friendly design
-- 3D animated landing page built with Three.js / React Three Fiber
-- Modern UI using Tailwind CSS or ShadCN
-- JWT-based or NextAuth authentication
-- Mock Stripe integration for payments
+### 💬 Communication
+- Real-time **WebSocket-based chat** between students and tutors within courses
+
+### 📧 Notifications
+- Transactional and status notifications via **Resend**
 
 ---
 
-## 🚀 Tech Stack
+## 🧱 Tech Stack
 
-- **Frontend**: Next.js (App Router), React, Tailwind CSS
-- **Backend**: Next.js API Routes / Node.js
-- **Database**: MongoDB + Mongoose
-- **Auth**: JWT or NextAuth.js
-- **Payments**: Stripe (test mode/mock)
-- **3D Animation**: Three.js / React Three Fiber
-- **AI Transcription**: OpenAI Whisper API or custom AI transcription pipeline
-- **Chat**: Socket.IO or Firebase Realtime
-- **Video Hosting**: Edge Store, Vimeo, or cloud-based storage
+| Layer         | Tech                             |
+|---------------|----------------------------------|
+| Frontend      | Next.js (App Router), React      |
+| Styling       | Tailwind CSS, ShadCN UI          |
+| Backend       | Next.js API Routes (Node.js)     |
+| Database      | **Supabase** (PostgreSQL)        |
+| Storage       | **Supabase Buckets**             |
+| Auth          | **Clerk**                        |
+| AI Services   | OpenAI Whisper API               |
+| Chat          | WebSockets                       |
+| Payments      | Stripe (Test Mode)               |
+| Notifications | Resend                           |
+| 3D Animation  | Three.js / React Three Fiber     |
 
 ---
+
+## 📦 Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/Slothdemon22/nascon-test.git
+cd edtech-platform
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Fill in required variables: Supabase, Clerk, Resend, OpenAI, etc.
+
+# Run the dev server
+npm run dev
