@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { loadStripe } from "@stripe/stripe-js"
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { Activity, ArrowRight, CreditCard, DollarSign, Lock, Shield, CheckCircle2, GraduationCap, BookOpen } from "lucide-react"
@@ -11,7 +11,7 @@ const stripePromise = loadStripe(
   "pk_test_51PrFee05Xih061cSZB11wBkHrgCxoAIbsx1hB40L0hMGd3zAFpcYIAmEi82ATmqIkXCpEOzOp7mrgZLno5Q5tccU00dhIu9Y5p",
 )
 
-const PaymentPage = () => {
+const PaymentForm = () => {
   const searchParams = useSearchParams()
   const amount = Number(searchParams.get("amount")) || 10.0
 
@@ -246,10 +246,18 @@ const PaymentPage = () => {
   )
 }
 
-const App = () => (
-  <Elements stripe={stripePromise}>
-    <PaymentPage />
-  </Elements>
-)
+const PaymentPage = () => {
+  return (
+    <Elements stripe={stripePromise}>
+      <Suspense fallback={
+        <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 text-white flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+        </div>
+      }>
+        <PaymentForm />
+      </Suspense>
+    </Elements>
+  )
+}
 
-export default App
+export default PaymentPage
