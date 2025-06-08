@@ -14,6 +14,7 @@ const isPrivateRoute = createRouteMatcher([
   '/profile(.*)',
   '/payment(.*)',
   "/chat(.*)",
+  "/tutor-dashboard(.*)",
 
 ]);
 
