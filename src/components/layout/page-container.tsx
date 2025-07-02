@@ -8,8 +8,8 @@ export const PageContainer = ({
   className = "",
 }: PageContainerProps) => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900">
-      <div className={`pt-24 pb-12 ${className}`}>
+    <div className="min-h-screen bg-[var(--background)]">
+      <div className={`pt-24 pb-12 max-w-7xl mx-auto px-4 ${className}`}>
         {children}
       </div>
     </div>

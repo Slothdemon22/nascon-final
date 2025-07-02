@@ -5,11 +5,12 @@ import { Suspense, useRef, useState } from "react"
 import { Environment, Float, OrbitControls, MeshDistortMaterial, Sparkles as DreiSparkles } from "@react-three/drei"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Brain, Zap, Sparkles, ArrowRight, Play, Rocket, Shield, Target, Globe, Award, TrendingUp } from "lucide-react"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Brain, Zap, Sparkles, ArrowRight, Play, Rocket, Shield, Target, Globe, Award, TrendingUp, GraduationCap } from "lucide-react"
 import type * as THREE from "three"
 import { PricingSection } from "@/components/landingPage/pricing-section"
 import Link from "next/link"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 // Enhanced 3D Brain with Pulsing Effect
 function EnhancedBrain3D() {
@@ -400,241 +401,309 @@ function StatsCounter({ number, label, delay }: { number: string; label: string;
   )
 }
 
+function HeroIllustration() {
+  return (
+    <svg width="340" height="260" viewBox="0 0 340 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="30" y="180" width="80" height="40" rx="8" fill="var(--primary)" />
+      <rect x="120" y="160" width="80" height="60" rx="8" fill="var(--secondary)" />
+      <rect x="210" y="200" width="80" height="20" rx="8" fill="var(--accent)" />
+      <rect x="60" y="140" width="60" height="20" rx="6" fill="var(--accent2)" />
+      {/* Graduation cap */}
+      <g>
+        <rect x="170" y="80" width="60" height="12" rx="4" fill="var(--primary)" />
+        <polygon points="200,60 230,86 170,86" fill="var(--primary)" />
+        <rect x="198" y="86" width="4" height="18" rx="2" fill="var(--accent2)" />
+        <circle cx="200" cy="104" r="3" fill="var(--accent2)" />
+      </g>
+      {/* Learning path (curved line) */}
+      <path d="M40 220 Q120 100 300 120" stroke="var(--accent)" strokeWidth="6" fill="none" strokeLinecap="round" />
+      {/* Dots on path */}
+      <circle cx="120" cy="140" r="7" fill="var(--primary)" />
+      <circle cx="200" cy="110" r="7" fill="var(--accent)" />
+      <circle cx="270" cy="125" r="7" fill="var(--accent2)" />
+    </svg>
+  );
+}
+
+const partners = [
+  { name: "Coursera", color: "#6246EA" },
+  { name: "Udemy", color: "#19D3AE" },
+  { name: "Khan Academy", color: "#FF6A3D" },
+  { name: "edX", color: "#232946" },
+  { name: "Google", color: "#4285F4" },
+];
+
+const steps = [
+  { icon: "🎓", title: "Sign Up", desc: "Create your free account in seconds." },
+  { icon: "📚", title: "Choose Course", desc: "Browse and enroll in top-rated courses." },
+  { icon: "💡", title: "Learn & Practice", desc: "Engage with interactive lessons and quizzes." },
+  { icon: "🏆", title: "Get Certified", desc: "Earn certificates to boost your career." },
+];
+
+const testimonials = [
+  {
+    name: "Ayesha Khan",
+    quote: "EduAI made learning so much fun and effective! The platform is beautiful and easy to use.",
+    role: "Student, Computer Science"
+  },
+  {
+    name: "Ali Raza",
+    quote: "The instructors are top-notch and the content is always up to date. Highly recommended!",
+    role: "Professional, Data Analyst"
+  },
+  {
+    name: "Sara Ahmed",
+    quote: "I landed my dream job after completing several courses here. The certificates really helped!",
+    role: "Graduate, Marketing"
+  },
+];
+
 export default function EnhancedLandingPage() {
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
+  const [showTutorMsg, setShowTutorMsg] = useState(false)
+  const tutorMsgTimeout = useRef<NodeJS.Timeout | null>(null)
+
+  const handleBecomeTutor = () => {
+    setShowTutorMsg(true)
+    if (tutorMsgTimeout.current) clearTimeout(tutorMsgTimeout.current)
+    tutorMsgTimeout.current = setTimeout(() => setShowTutorMsg(false), 3000)
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-      {/* Enhanced Hero Section - Full height, no padding needed */}
-      <section className="relative h-screen flex items-center justify-center">
-        {/* 3D Background */}
-        <motion.div className="absolute inset-0 z-0" style={{ y }}>
-          <EnhancedHero3DScene />
-        </motion.div>
-
-        {/* Dynamic Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/30 to-slate-900/90 z-10" />
-
-        {/* Animated Grid Pattern */}
-        <div className="absolute inset-0 opacity-20 z-10">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.1)_1px,transparent_1px)] bg-[size:50px_50px] animate-pulse" />
-        </div>
-
-        {/* Hero Content */}
-        <div className="relative z-20 text-center max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-          >
+    <div className="bg-[var(--background)]">
+      {/* Hero Section */}
+      <section className="py-20 md:py-28 bg-gradient-to-br from-secondary via-white to-accent/10 border-b border-border">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+          {/* Left: Animated Text */}
+          <div className="flex-1 text-center md:text-left">
             <motion.h1
-              className="text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 mb-8 leading-tight drop-shadow-2xl"
-              initial={{ scale: 0.8, rotateX: -15 }}
-              animate={{ scale: 1, rotateX: 0 }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="text-5xl md:text-6xl font-extrabold mb-6 text-foreground leading-tight"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              Future of
-              <br />
-              <motion.span
-                className="text-white drop-shadow-2xl"
-                animate={{
-                  textShadow: [
-                    "0 0 20px rgba(139,92,246,0.5)",
-                    "0 0 40px rgba(139,92,246,0.8)",
-                    "0 0 20px rgba(139,92,246,0.5)",
-                  ],
-                }}
-                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-              >
-                Learning
-              </motion.span>
+              Unlock Your <span className="text-primary">Potential</span> <br /> with <span className="text-accent">Modern Learning</span>
             </motion.h1>
-          </motion.div>
-
-          <motion.p
-            className="text-2xl text-gray-200 mb-12 max-w-4xl mx-auto leading-relaxed font-medium drop-shadow-lg"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            Experience revolutionary education with AI-powered personalization, real-time collaboration, and immersive
-            3D learning environments that adapt to your unique learning style.
-          </motion.p>
-
-          <motion.div
-            className="flex justify-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
-          >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link href="/courses">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 hover:from-purple-700 hover:via-pink-700 hover:to-cyan-700 text-white px-20 py-8 text-2xl rounded-3xl shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 group border-2 border-white/20"
-                >
-                  Start Your Journey
-                  <motion.div animate={{ x: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}>
-                    <Rocket className="ml-3 w-8 h-8" />
-                  </motion.div>
-                </Button>
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* Enhanced Stats */}
-          <motion.div
-            className="flex justify-center gap-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
-          >
-            <StatsCounter number="100K+" label="Active Learners" delay={0.1} />
-            <StatsCounter number="5K+" label="AI Courses" delay={0.2} />
-            <StatsCounter number="99.8%" label="Success Rate" delay={0.3} />
-          </motion.div>
-        </div>
-
-        {/* Enhanced Floating Particles */}
-        <div className="absolute inset-0 z-10">
-          {Array.from({ length: 80 }).map((_, i) => (
+            <motion.p
+              className="text-lg md:text-xl text-muted-foreground mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Join thousands of learners and discover a world of knowledge, skills, and growth. Learn at your own pace with expert instructors and a vibrant community.
+            </motion.p>
             <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                opacity: [0.3, 1, 0.3],
-                scale: [1, 1.5, 1],
-              }}
-              transition={{
-                duration: 4 + Math.random() * 3,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: Math.random() * 3,
-              }}
-            />
-          ))}
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Button
+                className="bg-primary text-white hover:bg-primary/90 px-10 py-5 text-lg font-bold rounded-xl flex items-center gap-2 transition-all duration-200 shadow-md"
+                onClick={() => window.location.href = '/courses'}
+              >
+                <Rocket className="w-5 h-5" />
+                Browse Courses
+              </Button>
+              <div className="flex flex-col items-center">
+                <Button
+                  variant="outline"
+                  className="border-accent text-accent hover:bg-accent/10 px-10 py-5 text-lg font-bold rounded-xl flex items-center gap-2 transition-all duration-200"
+                  onClick={handleBecomeTutor}
+                >
+                  <GraduationCap className="w-5 h-5" />
+                  Become a Tutor
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+          {/* Right: Custom SVG Illustration */}
+          <div className="flex-1 flex justify-center md:justify-end">
+            <HeroIllustration />
+          </div>
         </div>
       </section>
-
-      {/* Rest of the content with proper spacing */}
-      <div className="pt-24">
-        {/* Enhanced Features Section */}
-        <section className="py-40 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 to-purple-900/30" />
-
-          <div className="max-w-8xl mx-auto px-6 relative z-10">
-            <motion.div
-              className="text-center mb-24"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
-            >
-              <motion.h2
-                className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-cyan-300 mb-8 drop-shadow-xl"
-                whileInView={{ scale: [0.9, 1] }}
-                transition={{ duration: 0.8 }}
+      {/* Trusted By Section */}
+      <section className="py-10 bg-gradient-to-r from-white via-secondary to-accent/5 border-b border-border">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <motion.h3 className="text-lg font-semibold text-muted-foreground mb-6" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.7 }}>
+            Trusted by learners and partners worldwide
+          </motion.h3>
+          <div className="flex flex-wrap justify-center gap-8">
+            {partners.map((p, i) => (
+              <motion.div
+                key={p.name}
+                className="text-xl font-bold px-6 py-2 rounded-lg"
+                style={{ color: p.color, background: 'rgba(98,70,234,0.05)' }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                Revolutionary Features
-              </motion.h2>
-              <p className="text-2xl text-gray-300 max-w-4xl mx-auto font-medium leading-relaxed">
-                Discover how our cutting-edge AI platform transforms education with immersive technology
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              <EnhancedFeatureCard
-                icon={Brain}
-                title="AI-Powered Personalization"
-                description="Advanced neural networks analyze your learning patterns to create personalized curricula that adapt in real-time to maximize your potential."
-                delay={0.1}
-                gradient="from-purple-600/90 to-purple-800/90"
-                accentColor="bg-gradient-to-r from-pink-500 to-purple-500"
-              />
-              <EnhancedFeatureCard
-                icon={Zap}
-                title="Real-time Collaboration"
-                description="Connect instantly with peers and mentors through our quantum-speed collaboration platform featuring live coding, virtual whiteboards, and AI moderation."
-                delay={0.2}
-                gradient="from-cyan-600/90 to-blue-800/90"
-                accentColor="bg-gradient-to-r from-cyan-500 to-blue-500"
-              />
-              <EnhancedFeatureCard
-                icon={Globe}
-                title="Immersive 3D Learning"
-                description="Step into virtual laboratories, historical recreations, and interactive simulations that make complex concepts tangible and unforgettable."
-                delay={0.3}
-                gradient="from-emerald-600/90 to-teal-800/90"
-                accentColor="bg-gradient-to-r from-emerald-500 to-teal-500"
-              />
-              <EnhancedFeatureCard
-                icon={Target}
-                title="Smart Progress Tracking"
-                description="AI-driven analytics provide deep insights into your learning journey with predictive modeling and personalized recommendations for optimal growth."
-                delay={0.4}
-                gradient="from-orange-600/90 to-red-800/90"
-                accentColor="bg-gradient-to-r from-orange-500 to-red-500"
-              />
-              <EnhancedFeatureCard
-                icon={Shield}
-                title="Secure Learning Environment"
-                description="Enterprise-grade security with blockchain verification ensures your achievements are permanent and your data remains completely private."
-                delay={0.5}
-                gradient="from-indigo-600/90 to-purple-800/90"
-                accentColor="bg-gradient-to-r from-indigo-500 to-purple-500"
-              />
-              <EnhancedFeatureCard
-                icon={Award}
-                title="Industry Certification"
-                description="Earn globally recognized credentials from top universities and tech companies, with AI-verified skill assessments and portfolio building."
-                delay={0.6}
-                gradient="from-yellow-600/90 to-orange-800/90"
-                accentColor="bg-gradient-to-r from-yellow-500 to-orange-500"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Enhanced CTA Section */}
-        <section className="py-40 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 via-pink-600/30 to-cyan-600/30" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.3),transparent_70%)]" />
-
-          <div className="max-w-6xl mx-auto text-center px-6 relative z-10">
-            <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-              <motion.h2
-                className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-cyan-300 mb-8 drop-shadow-2xl"
-                whileInView={{ scale: [0.9, 1] }}
-                transition={{ duration: 0.8 }}
-              >
-                Ready to Transform Your Future?
-              </motion.h2>
-              <p className="text-2xl text-gray-200 mb-16 font-medium leading-relaxed">
-                Join the revolution of learners who are already experiencing the future of education
-              </p>
-
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 hover:from-purple-700 hover:via-pink-700 hover:to-cyan-700 text-white px-20 py-10 text-3xl rounded-3xl shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 group border-2 border-white/30"
-                >
-                  Begin Your Transformation
-                  <motion.div animate={{ x: [0, 10, 0] }} transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}>
-                    <TrendingUp className="ml-4 w-10 h-10" />
-                  </motion.div>
-                </Button>
+                {p.name}
               </motion.div>
-            </motion.div>
+            ))}
           </div>
-        </section>
-
-        {/* Pricing Section */}
-        <PricingSection />
-      </div>
+        </div>
+      </section>
+      {/* How It Works Section */}
+      <section className="py-20 bg-gradient-to-br from-accent/5 via-white to-secondary/30 border-b border-border">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.h2 className="text-3xl font-bold text-foreground mb-12 text-center" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.7 }}>
+            How It Works
+          </motion.h2>
+          <div className="grid md:grid-cols-4 gap-8">
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.title}
+                className="flex flex-col items-center text-center p-6 rounded-xl bg-white shadow-md border border-border"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: i * 0.15 }}
+              >
+                <div className="text-4xl mb-4">{step.icon}</div>
+                <div className="font-bold text-lg mb-2 text-primary">{step.title}</div>
+                <div className="text-muted-foreground">{step.desc}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Features Section */}
+      <section className="py-20 bg-gradient-to-br from-white via-secondary to-accent/5 border-b border-border">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Why Choose EduAI?</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="hover:shadow-lg transition-shadow duration-300 border-primary/20">
+              <CardHeader>
+                <CardTitle className="text-primary">Expert Instructors</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">Learn from industry leaders and experienced educators who are passionate about teaching.</p>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-lg transition-shadow duration-300 border-accent/20">
+              <CardHeader>
+                <CardTitle className="text-accent">Flexible Learning</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">Access courses anytime, anywhere, and learn at your own pace with our flexible online platform.</p>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-lg transition-shadow duration-300 border-accent2/20">
+              <CardHeader>
+                <CardTitle className="text-accent2">Career Advancement</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">Gain skills and certifications that help you advance your career and achieve your goals.</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+      {/* Testimonials Section */}
+      <section className="py-20 bg-gradient-to-br from-secondary/10 via-white to-accent/5 border-b border-border">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.h2 className="text-3xl font-bold text-foreground mb-12 text-center" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.7 }}>
+            What Our Learners Say
+          </motion.h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.name}
+                className="p-8 rounded-xl bg-white shadow-md border border-border flex flex-col items-center text-center"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: i * 0.15 }}
+              >
+                <div className="text-5xl mb-4">"</div>
+                <div className="text-lg font-medium mb-4 text-foreground">{t.quote}</div>
+                <div className="font-bold text-primary">{t.name}</div>
+                <div className="text-muted-foreground text-sm">{t.role}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Call to Action Section */}
+      <section className="py-20 bg-gradient-to-br from-accent/10 via-white to-secondary/10">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <motion.h2 className="text-4xl font-extrabold text-foreground mb-6" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+            Ready to Start Learning?
+          </motion.h2>
+          <motion.p className="text-lg text-muted-foreground mb-8" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}>
+            Join EduAI today and unlock a world of knowledge, skills, and opportunities. Your journey begins now!
+          </motion.p>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}>
+            <Button className="bg-primary text-white hover:bg-primary/90 px-10 py-4 text-lg shadow-lg">Get Started</Button>
+          </motion.div>
+        </div>
+      </section>
+      {/* Pricing Section */}
+      <section className="py-24 bg-gradient-to-br from-secondary via-white to-accent/10">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-4xl font-bold text-foreground mb-4 text-center">Pricing Plans</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12 text-center">
+            Choose the perfect plan to accelerate your learning journey
+          </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Basic Plan */}
+            <Card className="relative border h-full flex flex-col border-primary/20 hover:shadow-lg transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-xl font-bold text-foreground mb-2">Basic Plan</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <div className="mb-6">
+                  <span className="text-4xl font-bold text-primary">$49.99</span>
+                  <span className="text-muted-foreground ml-2">/month</span>
+                </div>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-primary/10 text-primary">✓</span>Access to basic courses</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-primary/10 text-primary">✓</span>Community support</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-primary/10 text-primary">✓</span>Basic learning materials</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-primary/10 text-primary">✓</span>24/7 Support</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-primary/10 text-primary">✓</span>Course completion certificates</li>
+                </ul>
+              </CardContent>
+              <div className="p-6 pt-0">
+                <Button className="w-full py-4 text-base bg-primary text-white hover:bg-primary/90">Get Started</Button>
+              </div>
+            </Card>
+            {/* Premium Plan */}
+            <Card className="relative border h-full flex flex-col border-accent/20 hover:shadow-lg transition-shadow duration-300">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                <div className="bg-accent text-white text-xs font-semibold px-4 py-1 rounded-full">Most Popular</div>
+              </div>
+              <CardHeader>
+                <CardTitle className="text-xl font-bold text-foreground mb-2">Premium Plan</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <div className="mb-6">
+                  <span className="text-4xl font-bold text-accent">$99.99</span>
+                  <span className="text-muted-foreground ml-2">/month</span>
+                </div>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-accent/10 text-accent">✓</span>Access to all courses</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-accent/10 text-accent">✓</span>Priority support</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-accent/10 text-accent">✓</span>Advanced learning materials</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-accent/10 text-accent">✓</span>1-on-1 mentoring sessions</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-accent/10 text-accent">✓</span>Certificate of completion</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-accent/10 text-accent">✓</span>Career guidance sessions</li>
+                  <li className="flex items-center gap-3 text-foreground"><span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-accent/10 text-accent">✓</span>Industry project experience</li>
+                </ul>
+              </CardContent>
+              <div className="p-6 pt-0">
+                <Button className="w-full py-4 text-base bg-accent text-white hover:bg-accent/90">Get Started</Button>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+      <Dialog open={showTutorMsg} onOpenChange={setShowTutorMsg}>
+        <DialogContent className="text-center">
+          <div className="text-accent font-semibold text-lg">Email your CV at EduAI@gmail.com</div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

@@ -238,7 +238,7 @@ const EnrolledCoursesPage = () => {
             <Button
               onClick={() => setSelectedCourse(null)}
               variant="ghost"
-              className="text-white hover:bg-white/10 group transition-all duration-200"
+              className="text-[var(--foreground)] hover:bg-white/10 group transition-all duration-200"
             >
               <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
               Back to Enrolled Courses
@@ -246,8 +246,8 @@ const EnrolledCoursesPage = () => {
           </div>
 
           <div className="space-y-8">
-            <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center">
-              <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden flex-shrink-0 border border-white/10 shadow-lg">
+            <div className="bg-card border border-border rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center">
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden flex-shrink-0 border border-border shadow-lg">
                 <img
                   src={selectedCourse.thumbnail || "/placeholder.svg"}
                   alt={selectedCourse.title}
@@ -260,17 +260,17 @@ const EnrolledCoursesPage = () => {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-none">Course</Badge>
-                  <span className="text-gray-400 text-sm flex items-center gap-1">
+                  <Badge className="bg-accent text-accent-foreground border-none">Course</Badge>
+                  <span className="text-muted-foreground text-sm flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
                     {formatDate(selectedCourse.created_at)}
                   </span>
                 </div>
-                <h1 className="text-3xl font-bold text-white mb-2">{selectedCourse.title}</h1>
-                <p className="text-gray-300 text-sm md:text-base">{selectedCourse.description}</p>
+                <h1 className="text-3xl font-bold text-foreground mb-2">{selectedCourse.title}</h1>
+                <p className="text-muted-foreground text-sm md:text-base">{selectedCourse.description}</p>
                 <div className="mt-4 flex items-center gap-4">
-                  <div className="flex items-center gap-1.5 text-sm text-gray-300">
-                    <FileVideo className="w-4 h-4 text-purple-400" />
+                  <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                    <FileVideo className="w-4 h-4 text-primary" />
                     <span>
                       {selectedCourse.videos.length} {selectedCourse.videos.length === 1 ? "Lesson" : "Lessons"}
                     </span>
@@ -281,27 +281,24 @@ const EnrolledCoursesPage = () => {
 
             <div className="space-y-6">
               {/* Course Progress - Moved to top */}
-              <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+              <div className="bg-card border border-border rounded-2xl p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-white">Course Progress</h3>
-                  <Badge variant="outline" className={`${
+                  <h3 className="text-lg font-medium text-foreground">Course Progress</h3>
+                  <Badge variant="outline" className={`$ {
                     calculateProgress() === 100
                       ? 'bg-green-500/10 text-green-400 border-green-500/20'
-                      : 'bg-purple-500/10 text-purple-400 border-purple-500/20'
+                      : 'bg-primary/10 border-primary/20'
                   }`}>
                     {calculateProgress() === 100 ? 'Completed' : 'In Progress'}
                   </Badge>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-400">Completion Status</span>
-                    <span className="text-white font-medium">{calculateProgress()}%</span>
+                    <span className="text-muted-foreground">Completion Status</span>
+                    <span className="text-foreground font-medium">{calculateProgress()}%</span>
                   </div>
-                  <Progress 
-                    value={calculateProgress()} 
-                    className="h-2 bg-white/5" 
-                  />
-                  <p className="text-xs text-gray-400 mt-2">
+                  <Progress value={calculateProgress()} className="h-2 bg-muted" />
+                  <p className="text-xs text-muted-foreground mt-2">
                     {calculateProgress() === 100 
                       ? 'Congratulations! You have completed all lessons in this course.' 
                       : `${Object.keys(watchedVideos).length} of ${selectedCourse.videos.length} lessons completed. Keep going!`}
@@ -310,30 +307,30 @@ const EnrolledCoursesPage = () => {
               </div>
 
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-                  <PlayCircle className="w-5 h-5 text-purple-400" />
+                <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+                  <PlayCircle className="w-5 h-5 text-primary" />
                   Course Content
                 </h2>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-muted-foreground">
                   {selectedCourse.videos.length} {selectedCourse.videos.length === 1 ? "video" : "videos"}
                 </div>
               </div>
 
               {selectedCourse.videos.length > 0 ? (
                 <div className="space-y-4">
-                  <div className="bg-gradient-to-r from-slate-900/90 to-slate-800/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                  <div className="bg-card border border-border rounded-2xl p-6">
                     <div className="flex items-center justify-between mb-6">
                       <div className="space-y-1">
-                        <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-                          <PlayCircle className="w-5 h-5 text-purple-400" />
+                        <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+                          <PlayCircle className="w-5 h-5 text-primary" />
                           Course Content
                         </h2>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-muted-foreground">
                           {selectedCourse.videos.length} {selectedCourse.videos.length === 1 ? "lesson" : "lessons"} available • {Object.keys(watchedVideos).length} completed
                         </p>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="text-sm text-gray-400 flex items-center gap-2">
+                        <div className="text-sm text-muted-foreground flex items-center gap-2">
                           <Clock className="w-4 h-4" />
                           Last updated {formatDate(selectedCourse.videos[selectedCourse.videos.length - 1].created_at)}
                         </div>
@@ -346,29 +343,25 @@ const EnrolledCoursesPage = () => {
                         return (
                           <div
                             key={video.id}
-                            className={`group relative bg-white/5 hover:bg-white/10 border border-white/10 hover:border-purple-500/30 rounded-xl transition-all duration-300 ${
-                              isWatched ? 'bg-purple-500/5' : ''
-                            }`}
+                            className={`group relative bg-card hover:bg-muted border border-border hover:border-accent rounded-xl transition-all duration-300 ${isWatched ? 'bg-primary/5' : ''}`}
                           >
-                            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
                             
                             <div className="relative flex items-center gap-4 p-4">
                               {/* Thumbnail */}
-                              <div className="w-48 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-slate-800">
+                              <div className="w-48 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-card">
                                 <div className="relative h-full group/thumbnail">
                                   <img
                                     src={video.videoThumbnail || "/placeholder.svg"}
                                     alt={`Lesson ${index + 1} Thumbnail`}
-                                    className={`h-full w-full object-cover transition-transform duration-300 group-hover/thumbnail:scale-105 ${
-                                      isWatched ? 'opacity-75' : ''
-                                    }`}
+                                    className={`h-full w-full object-cover transition-transform duration-300 group-hover/thumbnail:scale-105 ${isWatched ? 'opacity-75' : ''}`}
                                     onError={(e) => {
                                       const target = e.target as HTMLImageElement
                                       target.src = "https://via.placeholder.com/1920x1080?text=Video+Thumbnail"
                                     }}
                                   />
-                                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover/thumbnail:opacity-100 transition-opacity">
-                                    <PlayCircle className="w-10 h-10 text-white" />
+                                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover/thumbnail:opacity-100 transition-opacity">
+                                    <PlayCircle className="w-10 h-10 text-foreground" />
                                   </div>
                                 </div>
                               </div>
@@ -377,11 +370,9 @@ const EnrolledCoursesPage = () => {
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-2">
                                   <Badge 
-                                    className={`${
-                                      isWatched 
-                                        ? 'bg-green-500/10 text-green-400 border-green-500/20 hover:bg-green-500/20'
-                                        : 'bg-purple-500/10 text-purple-400 border-purple-500/20 hover:bg-purple-500/20'
-                                    }`}
+                                    className={`${isWatched 
+                                      ? 'bg-green-500/10 text-green-400 border-green-500/20 hover:bg-green-500/20' 
+                                      : 'bg-primary/10 text-primary border-primary/20 hover:bg-primary/20'}`}
                                   >
                                     Lesson {index + 1}
                                   </Badge>
@@ -390,15 +381,15 @@ const EnrolledCoursesPage = () => {
                                       Completed
                                     </Badge>
                                   )}
-                                  <span className="text-xs text-gray-400 flex items-center gap-1">
+                                  <span className="text-xs text-muted-foreground flex items-center gap-1">
                                     <Clock className="w-3.5 h-3.5" />
                                     {formatDate(video.created_at)}
                                   </span>
                                 </div>
-                                <h3 className="text-lg font-medium text-white group-hover:text-purple-400 transition-colors mb-1 truncate">
+                                <h3 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors mb-1 truncate">
                                   {video.Name}
                                 </h3>
-                                <p className="text-sm text-gray-400 line-clamp-2">
+                                <p className="text-sm text-muted-foreground line-clamp-2">
                                   Learn essential concepts and practical applications in this comprehensive lesson.
                                 </p>
                               </div>
@@ -407,11 +398,9 @@ const EnrolledCoursesPage = () => {
                               <div className="flex-shrink-0">
                                 <Button
                                   onClick={() => handleWatchVideo(video, selectedCourse.id)}
-                                  className={`${
-                                    isWatched
-                                      ? 'bg-green-500/10 text-green-400 hover:bg-green-500/20 border border-green-500/20'
-                                      : 'bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 border border-purple-500/20'
-                                  }`}
+                                  className={`${isWatched
+                                    ? 'bg-green-500/10 text-green-400 hover:bg-green-500/20 border border-green-500/20'
+                                    : 'bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20'}`}
                                 >
                                   <PlayCircle className="w-5 h-5 mr-2" />
                                   {isWatched ? 'Watch Again' : 'Watch Now'}
@@ -425,12 +414,12 @@ const EnrolledCoursesPage = () => {
                   </div>
                 </div>
               ) : (
-                <div className="bg-slate-900/50 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center">
+                <div className="bg-[var(--card)] backdrop-blur-lg border border-[var(--border)] rounded-2xl p-8 text-center">
                   <div className="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4 border border-purple-500/30">
-                    <FileVideo className="w-8 h-8 text-purple-300" />
+                    <FileVideo className="w-8 h-8  text-[var(--primary)]" />
                   </div>
-                  <h3 className="text-lg font-medium text-white mb-2">No Videos Available</h3>
-                  <p className="text-gray-400 max-w-md mx-auto">
+                  <h3 className="text-lg font-medium  text-[var(--foreground)] mb-2">No Videos Available</h3>
+                  <p className="text-[var(--muted-foreground)] max-w-md mx-auto">
                     No videos have been added to this course yet. Check back soon for updates.
                   </p>
                 </div>
@@ -447,8 +436,8 @@ const EnrolledCoursesPage = () => {
       <div className="max-w-7xl mx-auto px-4 space-y-8">
         {/* Header */}
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2">My Courses</h1>
-          <p className="text-gray-400">Access your enrolled courses and track your progress</p>
+          <h1 className="text-4xl font-bold  text-[var(--foreground)] mb-2">My Courses</h1>
+          <p className="text-[var(--muted-foreground)]">Access your enrolled courses and track your progress</p>
         </div>
 
         {/* Course Grid */}
@@ -457,12 +446,12 @@ const EnrolledCoursesPage = () => {
             [...Array(3)].map((_, i) => (
               <div
                 key={i}
-                className="bg-slate-900/50 backdrop-blur-lg border border-white/10 rounded-2xl p-4 space-y-4 animate-pulse"
+                className="bg-[var(--card)] backdrop-blur-lg border border-[var(--border)] rounded-2xl p-4 space-y-4 animate-pulse"
               >
-                <div className="aspect-video bg-slate-800 rounded-xl" />
-                <div className="h-6 bg-slate-800 rounded w-3/4" />
-                <div className="h-4 bg-slate-800 rounded w-1/2" />
-                <div className="h-20 bg-slate-800 rounded" />
+                <div className="aspect-video bg-[var(--card)] rounded-xl" />
+                <div className="h-6 bg-[var(--card)] rounded w-3/4" />
+                <div className="h-4 bg-[var(--card)] rounded w-1/2" />
+                <div className="h-20 bg-[var(--card)] rounded" />
               </div>
             ))
         ) : enrolledCourses.length > 0 ? (
@@ -472,58 +461,47 @@ const EnrolledCoursesPage = () => {
                 onClick={() => setSelectedCourse(course)}
                 className="group cursor-pointer"
               >
-                <div className="bg-gradient-to-br from-slate-900/90 via-slate-800/50 to-purple-900/30 backdrop-blur-sm border border-white/10 hover:border-purple-500/50 rounded-2xl p-5 space-y-4 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 relative overflow-hidden">
-                  {/* Background Glow Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+                <div className="bg-card border border-border hover:border-accent rounded-2xl p-5 space-y-4 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
                   {/* Thumbnail */}
                   <div className="aspect-video rounded-xl overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <img
-                    src={course.thumbnail || "/placeholder.svg"}
-                    alt={course.title}
+                    <img
+                      src={course.thumbnail || "/placeholder.svg"}
+                      alt={course.title}
                       className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-                    onError={(e) => {
+                      onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = "https://via.placeholder.com/1920x1080?text=Course+Thumbnail";
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-
                   {/* Content */}
                   <div className="space-y-3 relative">
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-none shadow-lg shadow-purple-500/20">
-                        Course
-                      </Badge>
-                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                      <Badge className="bg-accent text-accent-foreground border-none shadow">Course</Badge>
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5" />
                         {formatDate(course.created_at)}
                       </span>
                     </div>
-
-                    <h3 className="text-lg font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 transition-all duration-300">
+                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-all duration-300">
                       {course.title}
                     </h3>
-
-                    <p className="text-sm text-gray-400 line-clamp-2 group-hover:text-gray-300 transition-colors">
+                    <p className="text-sm text-muted-foreground line-clamp-2 group-hover:text-foreground transition-colors">
                       {course.description}
                     </p>
-
                     {/* Progress Section */}
-                    <div className="pt-3 border-t border-white/5 space-y-3">
+                    <div className="pt-3 border-t border-border space-y-3">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1.5 text-sm text-gray-300">
-                          <FileVideo className="w-4 h-4 text-purple-400" />
+                        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                          <FileVideo className="w-4 h-4 text-primary" />
                           <span>{course.videos.length} {course.videos.length === 1 ? "Lesson" : "Lessons"}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-300">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <span>Continue Learning</span>
-                          <ChevronRight className="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform" />
+                          <ChevronRight className="w-4 h-4 text-primary group-hover:translate-x-1 transition-transform" />
                         </div>
-                  </div>
-                      <Progress value={33} className="h-1.5 bg-white/5" />
+                      </div>
+                      <Progress value={33} className="h-1.5 bg-muted" />
                     </div>
                   </div>
                 </div>
@@ -531,20 +509,20 @@ const EnrolledCoursesPage = () => {
             ))
           ) : (
             <div className="col-span-full">
-              <div className="bg-slate-900/50 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center">
-                <div className="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4 border border-purple-500/30">
-                  <Book className="w-8 h-8 text-purple-300" />
-            </div>
-                <h3 className="text-lg font-medium text-white mb-2">No Enrolled Courses</h3>
-                <p className="text-gray-400 max-w-md mx-auto mb-6">
+              <div className="bg-card border border-border rounded-2xl p-8 text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4 border border-primary/30">
+                  <Book className="w-8 h-8 text-foreground" />
+                </div>
+                <h3 className="text-lg font-medium text-foreground mb-2">No Enrolled Courses</h3>
+                <p className="text-muted-foreground max-w-md mx-auto mb-6">
                   You haven't enrolled in any courses yet. Browse our courses to start your learning journey.
-            </p>
-            <Button
+                </p>
+                <Button
                   onClick={() => window.location.href = "/courses"}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600"
-            >
-              Browse Courses
-            </Button>
+                  className="bg-primary text-white hover:bg-accent"
+                >
+                  Browse Courses
+                </Button>
               </div>
           </div>
         )}
@@ -565,7 +543,7 @@ const EnrolledCoursesPage = () => {
                   setSelectedVideo(null)
                 }}
                 variant="ghost"
-                className="text-white hover:bg-white/10"
+                className=" text-[var(--foreground)] hover:bg-white/10"
               >
                 Close
               </Button>

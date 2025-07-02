@@ -158,170 +158,32 @@ function NewsletterSignup() {
 
 export function Footer() {
   return (
-    <footer className="relative bg-gradient-to-b from-slate-900 to-black overflow-hidden">
-      {/* 3D Background */}
-      <div className="absolute top-0 right-0 w-96 h-96 opacity-30">
-        <Footer3DScene />
-      </div>
-
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.1)_1px,transparent_1px)] bg-[size:100px_100px] animate-pulse" />
-      </div>
-
-      {/* Main Footer Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
-        {/* Top Section */}
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-16">
-          {/* Brand Section */}
-          <motion.div
-            className="lg:col-span-1"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-2xl flex items-center justify-center">
-                <Brain className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
-                EduAI
-              </span>
+    <footer className="w-full bg-[var(--background)] border-t border-border py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+          <div className="flex items-center gap-3 mb-4 md:mb-0">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-primary rounded-lg flex items-center justify-center">
+              <Brain className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
-
-            <p className="text-gray-300 leading-relaxed mb-6">
-              Revolutionizing education through AI-powered learning experiences that adapt to every student's unique
-              journey.
-            </p>
-
-            {/* Social Media */}
-            <div className="flex gap-3">
-              <SocialButton icon={Twitter} href="#" label="Twitter" color="text-blue-400" />
-              <SocialButton icon={Linkedin} href="#" label="LinkedIn" color="text-blue-600" />
-              <SocialButton icon={Github} href="#" label="GitHub" color="text-gray-400" />
-              <SocialButton icon={Youtube} href="#" label="YouTube" color="text-red-500" />
-            </div>
-          </motion.div>
-
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-purple-400" />
-              Platform
-            </h3>
-            <div className="space-y-4">
-              <FooterLink href="#" icon={Rocket}>
-                AI Courses
-              </FooterLink>
-              <FooterLink href="#" icon={Globe}>
-                Virtual Labs
-              </FooterLink>
-              <FooterLink href="#" icon={Brain}>
-                Skill Assessment
-              </FooterLink>
-              <FooterLink href="#" icon={Sparkles}>
-                Certifications
-              </FooterLink>
-            </div>
-          </motion.div>
-
-          {/* Resources */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h3 className="text-xl font-bold text-white mb-6">Resources</h3>
-            <div className="space-y-4">
-              <FooterLink href="#">Documentation</FooterLink>
-              <FooterLink href="#">API Reference</FooterLink>
-              <FooterLink href="#">Community</FooterLink>
-              <FooterLink href="#">Blog</FooterLink>
-              <FooterLink href="#">Help Center</FooterLink>
-            </div>
-          </motion.div>
-
-          {/* Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <h3 className="text-xl font-bold text-white mb-6">Contact</h3>
-            <div className="space-y-4">
-              <FooterLink href="mailto:hello@eduai.com" icon={Mail}>
-                hello@eduai.com
-              </FooterLink>
-              <FooterLink href="tel:+1234567890" icon={Phone}>
-                +1 (234) 567-890
-              </FooterLink>
-              <FooterLink href="#" icon={MapPin}>
-                San Francisco, CA
-              </FooterLink>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Newsletter Section */}
-        <div className="mb-16">
-          <NewsletterSignup />
-        </div>
-
-        {/* Bottom Section */}
-        <motion.div
-          className="border-t border-white/10 pt-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            {/* Copyright */}
-            <div className="flex items-center gap-2 text-gray-400">
-              <span>© 2024 EduAI. Made with</span>
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-              >
-                <Heart className="w-4 h-4 text-red-500 fill-current" />
-              </motion.div>
-              <span>for the future of learning</span>
-            </div>
-
-            {/* Legal Links */}
-            <div className="flex gap-8">
-              <FooterLink href="#">Privacy Policy</FooterLink>
-              <FooterLink href="#">Terms of Service</FooterLink>
-              <FooterLink href="#">Cookie Policy</FooterLink>
-            </div>
+            <span className="text-xl md:text-2xl font-extrabold text-foreground tracking-tight" style={{fontFamily: 'var(--font-sans)'}}>EduAI</span>
           </div>
-        </motion.div>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full opacity-40"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.4, 0.8, 0.4],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 items-center text-sm md:text-base">
+            <a href="#" className="text-accent hover:text-primary font-semibold transition-colors">AI Courses</a>
+            <a href="#" className="text-accent2 hover:text-primary font-semibold transition-colors">Virtual Labs</a>
+            <a href="#" className="text-primary hover:text-accent font-semibold transition-colors">Skill Assessment</a>
+            <a href="#" className="text-primary hover:text-accent2 font-semibold transition-colors">Certifications</a>
+            <a href="#" className="text-muted-foreground hover:text-primary font-semibold transition-colors">Blog</a>
+            <a href="#" className="text-muted-foreground hover:text-primary font-semibold transition-colors">Help Center</a>
+          </div>
+        </div>
+        <div className="mt-6 md:mt-8 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 border-t border-border pt-4 md:pt-6">
+          <div className="text-muted-foreground text-xs md:text-sm text-center">© 2024 EduAI. All rights reserved.</div>
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+            <a href="#" className="text-muted-foreground hover:text-primary text-xs md:text-sm transition-colors">Privacy Policy</a>
+            <a href="#" className="text-muted-foreground hover:text-primary text-xs md:text-sm transition-colors">Terms of Service</a>
+            <a href="#" className="text-muted-foreground hover:text-primary text-xs md:text-sm transition-colors">Cookie Policy</a>
+          </div>
+        </div>
       </div>
     </footer>
   )

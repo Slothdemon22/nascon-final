@@ -150,7 +150,7 @@ const ViewEnrollmentsPage = () => {
       <div className="p-6">
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-16 bg-slate-800/50 rounded-lg animate-pulse" />
+            <div key={i} className="h-16 bg-[var(--card)]/50 rounded-lg animate-pulse" />
           ))}
         </div>
       </div>
@@ -159,25 +159,25 @@ const ViewEnrollmentsPage = () => {
 
   return (
     <div className="space-y-6 min-w-0">
-      <div>
-        <h2 className="text-2xl font-bold text-white">Course Enrollments</h2>
-        <p className="text-gray-400">View and manage student enrollments across all courses</p>
+      <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-8">
+        <h2 className="text-2xl font-bold text-[var(--foreground)]">Course Enrollments</h2>
+        <p className="text-[var(--muted-foreground)]">View and manage student enrollments across all courses</p>
       </div>
 
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--primary)] w-5 h-5" />
         <Input
           type="text"
           placeholder="Search by course title, student name, or email..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-10 bg-slate-800/50 border-white/10 text-white placeholder:text-gray-400"
+          className="pl-10 bg-[var(--background)]/5 border-white/10 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
         />
       </div>
       
       <div className="space-y-4 min-w-0">
         {isLoading ? (
-          <div className="bg-slate-900/50 backdrop-blur-lg border border-white/10 rounded-2xl p-8">
+          <div className="bg-[var(--background)]/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8">
             <div className="flex items-center justify-center">
               <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             </div>
@@ -186,11 +186,11 @@ const ViewEnrollmentsPage = () => {
           filteredCourseGroups.map(([courseId, group]: [string, any]) => (
             <div
               key={courseId}
-              className="bg-slate-900/50 backdrop-blur-lg border border-white/10 rounded-2xl overflow-hidden min-w-0"
+              className="bg-[var(--background)]/5 backdrop-blur-lg border border-white/10 rounded-2xl overflow-hidden min-w-0"
             >
               {/* Course Header */}
               <div
-                className="p-6 cursor-pointer hover:bg-white/5 transition-colors"
+                className="p-6 cursor-pointer hover:bg-[var(--background)]/10 transition-colors"
                 onClick={() => toggleCourseExpansion(courseId)}
               >
                 <div className="flex items-center justify-between min-w-0">
@@ -207,19 +207,19 @@ const ViewEnrollmentsPage = () => {
                       />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h3 className="text-lg font-semibold text-white truncate">
+                      <h3 className="text-lg font-semibold text-[var(--foreground)] truncate">
                         {group.course.title}
                       </h3>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-[var(--muted-foreground)]">
                         {group.students.length} enrolled student{group.students.length !== 1 ? 's' : ''}
                       </p>
-                      <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                      <p className="text-sm text-[var(--muted-foreground)] mt-1 line-clamp-2">
                         {group.course.description}
                       </p>
                     </div>
                   </div>
                   <ChevronDown
-                    className={`w-5 h-5 text-gray-400 transition-transform flex-shrink-0 ml-4 ${
+                    className={`w-5 h-5 text-[var(--primary)] transition-transform flex-shrink-0 ml-4 ${
                       expandedCourses.has(courseId) ? 'rotate-180' : ''
                     }`}
                   />
@@ -231,7 +231,7 @@ const ViewEnrollmentsPage = () => {
                 <div className="border-t border-white/10">
                   <div className="p-6 space-y-4 overflow-x-auto">
                     {/* Table Header */}
-                    <div className="grid grid-cols-12 gap-4 text-sm text-gray-400 font-medium px-4 min-w-[800px]">
+                    <div className="grid grid-cols-12 gap-4 text-sm text-[var(--muted-foreground)] font-medium px-4 min-w-[800px]">
                       <div className="col-span-4">Student</div>
                       <div className="col-span-4">Email</div>
                       <div className="col-span-2">Enrolled On</div>
@@ -240,28 +240,28 @@ const ViewEnrollmentsPage = () => {
 
                     {/* Student Rows */}
                     <div className="space-y-2">
-                      {group.students.map((student, index) => (
+                      {group.students.map((student: { user: any; enrolledAt: string }, index: number) => (
                         <div
                           key={`${student.user.clerkID}-${index}`}
-                          className="grid grid-cols-12 gap-4 items-center bg-white/5 rounded-xl p-4 text-sm min-w-[800px]"
+                          className="grid grid-cols-12 gap-4 items-center bg-[var(--background)]/5 rounded-xl p-4 text-sm min-w-[800px]"
                         >
                           {/* Student Name & Avatar */}
                           <div className="col-span-4 flex items-center gap-3 min-w-0">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-rose-500 flex items-center justify-center text-white flex-shrink-0">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-rose-500 flex items-center justify-center text-[var(--foreground)] flex-shrink-0">
                               {student.user.fullName?.[0] || 'A'}
                             </div>
-                            <span className="text-white font-medium truncate">
+                            <span className="text-[var(--foreground)] font-medium truncate">
                               {student.user.fullName || 'Anonymous'}
                             </span>
                           </div>
 
                           {/* Email */}
-                          <div className="col-span-4 text-gray-300 truncate">
+                          <div className="col-span-4 text-[var(--muted-foreground)] truncate">
                             {student.user.email || 'No email provided'}
                           </div>
 
                           {/* Enrollment Date */}
-                          <div className="col-span-2 text-gray-300 whitespace-nowrap">
+                          <div className="col-span-2 text-[var(--muted-foreground)] whitespace-nowrap">
                             {new Date(student.enrolledAt).toLocaleDateString(undefined, {
                               year: 'numeric',
                               month: 'short',
@@ -274,14 +274,9 @@ const ViewEnrollmentsPage = () => {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 whitespace-nowrap"
+                              className="text-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10 whitespace-nowrap"
                               onClick={() => {
-                                setEnrollmentToDelete({
-                                  courseId: courseId,
-                                  clerkId: student.user.clerkID,
-                                  studentName: student.user.fullName || 'Anonymous',
-                                  courseName: group.course.title
-                                })
+                                setEnrollmentToDelete(student)
                                 setShowConfirmDialog(true)
                               }}
                             >
@@ -297,12 +292,12 @@ const ViewEnrollmentsPage = () => {
             </div>
           ))
         ) : (
-          <div className="bg-slate-900/50 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Users className="w-8 h-8 text-gray-400" />
+          <div className="bg-[var(--background)]/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center">
+            <div className="w-16 h-16 bg-[var(--background)]/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Users className="w-8 h-8 text-[var(--primary)]" />
             </div>
-            <h3 className="text-white text-lg font-medium mb-2">No Enrollments Found</h3>
-            <p className="text-gray-400 max-w-md mx-auto">
+            <h3 className="text-[var(--foreground)] text-lg font-medium mb-2">No Enrollments Found</h3>
+            <p className="text-[var(--muted-foreground)] max-w-md mx-auto">
               {searchTerm
                 ? "No enrollments match your search criteria. Try a different search term."
                 : "There are no student enrollments yet. Students can enroll in courses from the course catalog."}
@@ -312,27 +307,27 @@ const ViewEnrollmentsPage = () => {
       </div>
 
       <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
-        <AlertDialogContent className="bg-slate-900 border border-white/10">
+        <AlertDialogContent className="bg-[var(--card)] border border-white/10">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-white">Confirm Unenrollment</AlertDialogTitle>
-            <AlertDialogDescription className="text-gray-400">
+            <AlertDialogTitle className="text-[var(--foreground)]">Confirm Unenrollment</AlertDialogTitle>
+            <AlertDialogDescription className="text-[var(--muted-foreground)]">
               Are you sure you want to unenroll this student from the course? This action cannot be undone.
-              <div className="mt-4 p-4 bg-slate-800/50 rounded-lg space-y-2">
-                <p><strong className="text-white">Student:</strong> <span className="text-gray-300">{enrollmentToDelete?.userDetails?.fullName}</span></p>
-                <p><strong className="text-white">Course:</strong> <span className="text-gray-300">{enrollmentToDelete?.courseTable?.title}</span></p>
+              <div className="mt-4 p-4 bg-[var(--background)]/50 rounded-lg space-y-2">
+                <p><strong className="text-[var(--foreground)]">Student:</strong> <span className="text-[var(--muted-foreground)]">{enrollmentToDelete?.userDetails?.fullName}</span></p>
+                <p><strong className="text-[var(--foreground)]">Course:</strong> <span className="text-[var(--muted-foreground)]">{enrollmentToDelete?.courseTable?.title}</span></p>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel 
-              className="bg-slate-800 text-white hover:bg-slate-700 border-none"
+              className="bg-[var(--background)] text-[var(--foreground)] hover:bg-[var(--background)]/90 border-none"
               onClick={() => setShowConfirmDialog(false)}
             >
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={confirmUnenroll}
-              className="bg-red-600 hover:bg-red-700 text-white border-none"
+              className="bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-[var(--foreground)] border-none"
             >
               Yes, Unenroll Student
             </AlertDialogAction>

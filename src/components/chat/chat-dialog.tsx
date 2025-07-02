@@ -144,23 +144,23 @@ export const ChatDialog = ({ isOpen, onClose, courseId, courseName }: ChatDialog
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[500px] h-[600px] flex flex-col bg-gradient-to-br from-slate-900 via-slate-900/95 to-purple-900/20 border-white/10 text-white">
-        <DialogHeader className="border-b border-white/10 pb-4">
+      <DialogContent className="sm:max-w-[500px] h-[600px] flex flex-col bg-[var(--background)] border border-border text-foreground">
+        <DialogHeader className="border-b border-border pb-4">
           <DialogTitle className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-              <MessageCircle className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+              <MessageCircle className="w-4 h-4 text-white" />
             </div>
             <div>
               <div className="font-semibold">{courseName}</div>
-              <div className="text-xs text-gray-400">Course Chat {isTutor && "(Tutor Mode)"}</div>
+              <div className="text-xs text-muted-foreground">Course Chat {isTutor && "(Tutor Mode)"}</div>
             </div>
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-accent/10 scrollbar-track-transparent">
           {isLoading ? (
             <div className="flex items-center justify-center h-full">
-              <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-accent/30 border-t-accent rounded-full animate-spin" />
             </div>
           ) : messages.length > 0 ? (
             <AnimatePresence initial={false}>
@@ -179,7 +179,7 @@ export const ChatDialog = ({ isOpen, onClose, courseId, courseName }: ChatDialog
                     <div
                       className={`w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-medium shadow-lg overflow-hidden ${
                         message.clerkID === user?.id
-                          ? 'ring-2 ring-offset-2 ring-offset-slate-900 ' + (message.tutor ? 'ring-yellow-500/50' : 'ring-purple-500/50')
+                          ? 'ring-2 ring-offset-2 ring-offset-[var(--background)] ' + (message.tutor ? 'ring-accent2/50' : 'ring-primary/50')
                           : ''
                       }`}
                     >
@@ -196,53 +196,52 @@ export const ChatDialog = ({ isOpen, onClose, courseId, courseName }: ChatDialog
                       ) : (
                         <div className={`w-full h-full flex items-center justify-center ${
                           message.tutor 
-                            ? 'bg-gradient-to-br from-yellow-500 to-orange-500'
-                            : 'bg-gradient-to-br from-purple-500 to-pink-500'
+                            ? 'bg-accent2'
+                            : 'bg-primary'
                         }`}>
                           {message.Name?.[0] || 'A'}
                         </div>
                       )}
                     </div>
-                    <div className="text-[10px] text-gray-400">
+                    <div className="text-[10px] text-muted-foreground">
                       {formatTime(message.created_at)}
                     </div>
                   </div>
                   <div
-                    className={`group relative max-w-[70%] rounded-2xl p-3 shadow-lg transition-all duration-200 ${
+                    className={`group relative max-w-[70%] rounded-2xl p-3 shadow-md border transition-all duration-200 ${
                       message.clerkID === user?.id
                         ? message.tutor
-                          ? 'bg-gradient-to-br from-yellow-600/20 to-orange-600/20 text-white hover:from-yellow-600/30 hover:to-orange-600/30'
-                          : 'bg-gradient-to-br from-purple-600/20 to-pink-600/20 text-white hover:from-purple-600/30 hover:to-pink-600/30'
+                          ? 'bg-accent2/10 border-accent2 text-accent2'
+                          : 'bg-primary/10 border-primary text-primary'
                         : message.tutor
-                          ? 'bg-gradient-to-br from-yellow-600/20 to-orange-600/20 text-gray-200 hover:from-yellow-600/30 hover:to-orange-600/30'
-                          : 'bg-gradient-to-br from-blue-600/20 to-cyan-600/20 text-gray-200 hover:from-blue-600/30 hover:to-cyan-600/30'
+                          ? 'bg-accent2/10 border-accent2 text-accent2'
+                          : 'bg-accent/10 border-accent text-accent'
                     }`}
                   >
                     <div className="text-xs font-medium mb-1 flex items-center gap-2">
                       <span className="flex items-center gap-1">
                         {message.Name || 'Anonymous'}
                         {message.clerkID === user?.id && (
-                          <span className="text-[10px] text-purple-400/70">(You)</span>
+                          <span className="text-[10px] text-primary/70">(You)</span>
                         )}
                       </span>
                       {message.tutor && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300 border border-yellow-500/20">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-accent2/20 text-accent2 border border-accent2/20">
                           Tutor
                         </span>
                       )}
                     </div>
                     <div className="text-sm leading-relaxed">{message.message}</div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none" />
                   </div>
                 </motion.div>
               ))}
             </AnimatePresence>
           ) : (
-            <div className="flex flex-col items-center justify-center h-full text-gray-400">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-4">
-                <Sparkles className="w-8 h-8 text-purple-400" />
+            <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                <Sparkles className="w-8 h-8 text-accent" />
               </div>
-              <p className="text-lg font-medium text-white mb-1">Start a Conversation</p>
+              <p className="text-lg font-medium text-foreground mb-1">Start a Conversation</p>
               <p className="text-sm text-center max-w-sm">
                 {isTutor 
                   ? "As a tutor, you can help students with their questions and provide guidance."
@@ -253,21 +252,21 @@ export const ChatDialog = ({ isOpen, onClose, courseId, courseName }: ChatDialog
           <div ref={messagesEndRef} />
         </div>
 
-        <form onSubmit={handleSendMessage} className="p-4 border-t border-white/10">
+        <form onSubmit={handleSendMessage} className="p-4 border-t border-border bg-white/80 rounded-b-2xl">
           <div className="flex gap-2">
             <Input
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder={isTutor ? "Reply as tutor..." : "Type your message..."}
-              className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-gray-400 rounded-xl focus-visible:ring-purple-500/50"
+              className="flex-1 bg-white border border-border text-foreground placeholder:text-muted-foreground rounded-xl focus-visible:ring-accent focus-visible:border-accent"
             />
             <Button
               type="submit"
               disabled={!newMessage.trim()}
-              className={`rounded-xl px-4 ${
+              className={`rounded-xl px-4 font-semibold shadow-sm ${
                 isTutor 
-                  ? "bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600"
-                  : "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                  ? "bg-accent2 text-white hover:bg-accent2/90"
+                  : "bg-primary text-white hover:bg-primary/90"
               }`}
             >
               <Send className="w-4 h-4" />
